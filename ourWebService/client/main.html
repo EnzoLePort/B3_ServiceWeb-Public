@@ -1,0 +1,53 @@
+<head>
+  <title>ourWebService</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+
+<body>
+  {{> main}}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+</body>
+
+<template name="main">
+
+  <!-- DISPLAY VIDEOS -->
+  <div id="mainIframe" style="visibility: hidden; position: absolute; z-index: 999; width: 850px; height: 640px; left: calc(50% - 410px); top: calc(50% - 315px);">
+    <div style="text-align: center; display: flex; width: 20px; height: 20px; border-radius: 50px; background-color: red; color: white; position: absolute; top: 0px; right: 0px; z-index: 9;">
+      <div style="align-self: center; flex: auto;">x</div>
+      <button class="quit" style="position: absolute; width: 100%; height: 100%; opacity: 0%;"></button>
+    </div>
+    <iframe id="insideIframe" style="position: absolute; top: 10px;" width="840" height="630" src="https://www.youtube.com/embed/KAsl86E4fLQ"></iframe>
+  </div>
+
+  <!-- DISPLAY HEADER -->
+  <div style="place-content: space-between; display: flex;">
+    <h1 id="title">Liste des films :)</h1>
+    <button id="changebt" class="change btn btn-success">See TV Series</button>
+  </div>
+
+  <!-- DISPLAY "MOVIES" -->
+  <div class="container-fluid">
+    <div class="row">
+      {{#each movie in movies}}
+        <div class="col-4 mt-4" style="border: solid;">
+          <div class="card" style="height: 100%;">
+            <button class="img" style="padding: 0px;">
+              <img data-id="{{movie.id}}" style="height:600px;" src="https://www.themoviedb.org/t/p/w440_and_h660_face{{movie.poster_path}}" class="card-img-top" alt="...">
+            </button>
+            <div class="card-body">
+              <h5 class="card-title">{{movie.title}}</h5>
+              <p class="card-text">{{movie.overview}}</p>
+              <div style="display: flex; place-content: space-evenly;">
+                <button class="like btn btn-success" data-id="{{movie.id}}">Like</button>
+                <div style="width: 64px; height: 64px;">
+                  <img src="https://image.flaticon.com/icons/png/128/833/833472.png" data-src="https://image.flaticon.com/icons/png/128/833/833472.png" alt="Heart free icon" title="Heart free icon" width="64" height="64" class="lzy lazyload--done" srcset="https://image.flaticon.com/icons/png/128/833/833472.png 4x" style="position: absolute;">
+                  <div id="count_{{movie.id}}" style="position: relative;text-align: center;top: 30%;color: white;font-weight: bold;">0</div>
+                </div>
+              </div>
+            </div>
+          </div> 
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</template>
